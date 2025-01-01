@@ -1,8 +1,1 @@
-ArgumentCountError: Too few arguments to function Drupal\Core\Form\ConfigFormBase::__construct(), 1 passed in C:\xampp\htdocs\Drpl11\modules\contrib\notfoundpassthrough-3433633\src\Form\SettingsForm.php on line 44 and exactly 2 expected in Drupal\Core\Form\ConfigFormBase->__construct() (line 44 of C:\xampp\htdocs\Drpl11\core\lib\Drupal\Core\Form\ConfigFormBase.php).
-
-
-PHP Fatal error:  Type of Drupal\notfoundpassthrough\Form\SettingsForm::$typedConfigManager must be Drupal\Core\Config\TypedConfigManagerInterface (as in class Drupal\Core\Form\ConfigFormBase) in C:\xampp\htdocs\Drpl11\modules\contrib\notfoundpassthrough-3433633\src\Form\SettingsForm.php on line 14
-
-
-
-ArgumentCountError: Too few arguments to function Drupal\Core\Form\ConfigFormBase::__construct(), 1 passed in C:\xampp\htdocs\Drpl11\modules\contrib\notfoundpassthrough-3433633\src\Form\SettingsForm.php on line 54 and exactly 2 expected in Drupal\Core\Form\ConfigFormBase->__construct() (line 44 of C:\xampp\htdocs\Drpl11\core\lib\Drupal\Core\Form\ConfigFormBase.php).
+ArgumentCountError: Too few arguments to function Drupal\Core\Form\ConfigFormBase::__construct(), 1 passed in C:\xampp\htdocs\Drpl11\modules\contrib\notfoundpassthrough-3433633\src\Form\SettingsForm.php on line 37 and exactly 2 expected in Drupal\Core\Form\ConfigFormBase->__construct() (line 44 of C:\xampp\htdocs\Drpl11\core\lib\Drupal\Core\Form\ConfigFormBase.php).
