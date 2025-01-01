@@ -3,6 +3,7 @@
 namespace Drupal\notfoundpassthrough\Form;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Config\TypedConfigManagerInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\path_alias\AliasManagerInterface;
@@ -38,6 +39,8 @@ class SettingsForm extends ConfigFormBase {
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The factory for configuration objects.
+   * @param \Drupal\Core\Config\TypedConfigManagerInterface $typed_config_manager
+   *   The typed config manager.
    * @param \Drupal\path_alias\AliasManagerInterface $alias_manager
    *   The path alias manager.
    * @param \Drupal\Core\Path\PathValidatorInterface $path_validator
@@ -47,11 +50,13 @@ class SettingsForm extends ConfigFormBase {
    */
   public function __construct(
     ConfigFactoryInterface $config_factory,
+    TypedConfigManagerInterface $typed_config_manager,
     AliasManagerInterface $alias_manager,
     PathValidatorInterface $path_validator,
     RequestContext $request_context
   ) {
-    parent::__construct($config_factory);
+    // Pass both required arguments to the parent constructor.
+    parent::__construct($config_factory, $typed_config_manager);
 
     $this->aliasManager = $alias_manager;
     $this->pathValidator = $path_validator;
@@ -64,6 +69,7 @@ class SettingsForm extends ConfigFormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('config.factory'),
+      $container->get('config.typed'), // Inject the typed config manager.
       $container->get('path_alias.manager'),
       $container->get('path.validator'),
       $container->get('router.request_context')
