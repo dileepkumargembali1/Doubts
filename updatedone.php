@@ -14,6 +14,34 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class SettingsForm extends ConfigFormBase {
 
   /**
+   * The path alias manager.
+   *
+   * @var \Drupal\path_alias\AliasManagerInterface
+   */
+  protected $aliasManager;
+
+  /**
+   * The path validator.
+   *
+   * @var \Drupal\Core\Path\PathValidatorInterface
+   */
+  protected $pathValidator;
+
+  /**
+   * The request context.
+   *
+   * @var \Drupal\Core\Routing\RequestContext
+   */
+  protected $requestContext;
+
+  /**
+   * The typed configuration manager.
+   *
+   * @var \Drupal\Core\Config\TypedConfigManagerInterface
+   */
+  protected $typedConfigManager;
+
+  /**
    * {@inheritdoc}
    */
   public function getFormId() {
@@ -41,7 +69,7 @@ class SettingsForm extends ConfigFormBase {
     RequestContext $request_context,
     TypedConfigManagerInterface $typed_config_manager
   ) {
-    parent::__construct($config_factory);
+    parent::__construct($config_factory, $typed_config_manager);
 
     $this->aliasManager = $alias_manager;
     $this->pathValidator = $path_validator;
@@ -75,7 +103,6 @@ class SettingsForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $settings = $this->config('notfoundpassthrough.settings');
 
-    $form = [];
     $form['redirect_options'] = [
       '#type' => 'fieldset',
       '#title' => $this->t('Redirect options'),
@@ -84,11 +111,9 @@ class SettingsForm extends ConfigFormBase {
     $form['redirect_options']['servers'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Legacy servers'),
-      '#description' => $this->t('Please enter server addresses (ex: http://legacy.example.com). If you exclude the protocol, it will be preserved based on the current connection type. Enter one server per line, the order determines the preference. If you require the request URI to be a part of a longer address, use the [request_uri] token (ex: http://legacy.example.com/[request_uri]/index.html). Please note that the resulting URI will be verified prior to the redirect.'),
+      '#description' => $this->t('Enter server addresses. One server per line.'),
       '#default_value' => $settings->get('servers'),
     ];
-
-    // Additional fields here...
 
     return parent::buildForm($form, $form_state);
   }
@@ -101,10 +126,10 @@ class SettingsForm extends ConfigFormBase {
       $form_state->setValueForElement($form['redirect_options']['site_404'], $this->aliasManager->getPathByAlias($form_state->getValue('site_404')));
     }
     if (($value = $form_state->getValue('site_404')) && $value[0] !== '/') {
-      $form_state->setErrorByName('site_404', $this->t("The path '%path' has to start with a slash.", ['%path' => $value]));
+      $form_state->setErrorByName('site_404', $this->t("The path '%path' must start with a slash.", ['%path' => $value]));
     }
     if (!$form_state->isValueEmpty('site_404') && !$this->pathValidator->isValid($form_state->getValue('site_404'))) {
-      $form_state->setErrorByName('site_404', $this->t("Either the path '%path' is invalid or you do not have access to it.", ['%path' => $form_state->getValue('site_404')]));
+      $form_state->setErrorByName('site_404', $this->t("The path '%path' is invalid or you do not have access to it.", ['%path' => $form_state->getValue('site_404')]));
     }
   }
 
@@ -114,14 +139,9 @@ class SettingsForm extends ConfigFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->config('notfoundpassthrough.settings')
       ->set('servers', $form_state->getValue('servers'))
-      ->set('search', $form_state->getValue('search'))
-      ->set('redirect', $form_state->getValue('redirect'))
-      ->set('site_404', $form_state->getValue('site_404'))
-      ->set('save_redirect', $form_state->getValue('save_redirect'))
-      ->set('redirect_code', $form_state->getValue('redirect_code'))
-      ->set('force_redirect_code', $form_state->getValue('force_redirect_code'))
       ->save();
 
     parent::submitForm($form, $form_state);
   }
 }
+
