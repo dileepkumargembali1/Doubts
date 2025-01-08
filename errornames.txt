@@ -9,3 +9,10 @@ Fatal error: Cannot redeclare drupal_error_levels() (previously declared in C:\x
 Drupal\config_rewrite\Exception\NonexistentInitialConfigException: Tried to rewrite config ultimate_cron.job.message_cron by opigno_cron module without initial config. in Drupal\config_rewrite\ConfigRewriter->rewriteConfig() (line 183 of C:\xampp\htdocs\Drupalopign\web\modules\contrib\config_rewrite\src\ConfigRewriter.php).
 throw new NonexistentInitialConfigException("Tried to rewrite config $config_name by $extensionName module without initial config.");
     }
+I am currently out of the office from January 9th to January 24th and will have limited/no access to Microsoft Teams or email during this time.
+
+For urgent matters, please contact [Backup Contact Name] at [Backup Contact Email/Phone]. I will respond to your message as soon as possible upon my return.
+
+Thank you for your understanding.
+
+Best regards,
