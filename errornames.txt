@@ -4,3 +4,6 @@ PHP Deprecated:  Optional parameter $fileDir declared before required parameter 
 
 
 Fatal error: Cannot redeclare drupal_error_levels() (previously declared in C:\xampp\htdocs\Drpl10\core\includes\errors.inc:24) in C:\xampp\htdocs\Drpl10\web\core\includes\errors.inc on line 24
+
+
+Drupal\config_rewrite\Exception\NonexistentInitialConfigException: Tried to rewrite config ultimate_cron.job.message_cron by opigno_cron module without initial config. in Drupal\config_rewrite\ConfigRewriter->rewriteConfig() (line 183 of C:\xampp\htdocs\Drupalopign\web\modules\contrib\config_rewrite\src\ConfigRewriter.php).
