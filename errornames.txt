@@ -7,3 +7,5 @@ Fatal error: Cannot redeclare drupal_error_levels() (previously declared in C:\x
 
 
 Drupal\config_rewrite\Exception\NonexistentInitialConfigException: Tried to rewrite config ultimate_cron.job.message_cron by opigno_cron module without initial config. in Drupal\config_rewrite\ConfigRewriter->rewriteConfig() (line 183 of C:\xampp\htdocs\Drupalopign\web\modules\contrib\config_rewrite\src\ConfigRewriter.php).
+throw new NonexistentInitialConfigException("Tried to rewrite config $config_name by $extensionName module without initial config.");
+    }
